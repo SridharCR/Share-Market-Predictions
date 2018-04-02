@@ -6,21 +6,26 @@
 # 
 #    http://shiny.rstudio.com/
 #
-
+library(DT)
 library(shiny)
+library(alphavantager)
 
-# Define server logic required to draw a histogram
+star_init <- function()
+{
+  av_api_key("MKZU4NIZYCV91AOZ");
+}
+get_data <- function(stock_name)
+{
+  sri <- data.frame(av_get(symbol = stock_name, av_fun = "TIME_SERIES_DAILY", interval = "15min", outputsize = "compact"))
+}
 shinyServer(function(input, output) {
-   
-  #output$distPlot <- renderPlot({
-    
-    # generate bins based on input$bins from ui.R
-    #x    <- faithful[, 2] 
-    #bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
-    # draw the histogram with the specified number of bins
-    #hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    
-  #})
+  #startTime <- Sys.time()
+  star_init()
+  #av_api_key("MKZU4NIZYCV91AOZ")
+  #sri <- data.frame(av_get(symbol = "MSFT", av_fun = "TIME_SERIES_DAILY", interval = "15min", outputsize = "compact"))
+  get_data(input$stock_name)
+  output$mytable = DT::renderDataTable({
+    sri
+  })
   
 })
