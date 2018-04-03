@@ -9,24 +9,17 @@
 
 library(shiny)
 library(DT)
-# Define UI for application that draws a histogram
+library(ggplot2)
 shinyUI(fluidPage(
-  
-  # Application title
   titlePanel("Stock prediction"),
-  
-  # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
       textInput(inputId = "stock_name",label = "Enter the stock name",value = "MSFT")
     ),
     mainPanel(
       h2("Stock data"),
-      DT::dataTableOutput("mytable")
+      #DT::dataTableOutput("mytable"),
+      plotOutput("plot_high")
     )
   )
-    
-    # Show a plot of the generated distribution
-    
-  
 ))
