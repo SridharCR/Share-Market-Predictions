@@ -8,7 +8,7 @@ data <- function(stock_name="",days_history){
   sri
 }
 visualization <- function(sri){
-  high_vis <- ggplot(aes(x = timestamp, y = high),data = sri) + geom_freqpoly(stat = "identity") + 
+  high_vis <- ggplot(aes(x = timestamp),data = sri) + geom_line(aes(y = high)) + geom_line(aes(y = low)) + 
     labs(title = "High price vs Time",x = "Timeline in months",y = "Share price - High") + 
     theme_classic(base_size = 20)
   high_vis
